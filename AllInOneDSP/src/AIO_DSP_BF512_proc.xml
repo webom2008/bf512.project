@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="yes"?> 
+ 
+<custom-visualdsp-proc-xml 
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     xsi:noNamespaceSchemaLocation="D:\Program Files (x86)\Analog Devices\VisualDSP 5.0\System\ArchDef\ADSP-custom-board.xsd" 
+     processor-family="BLACKFIN" 
+     file="AIO_DSP_BF512_proc.xml"> 
+ 
+<!-- ************************************************************************* --> 
+<!-- ******* AIO_DSP_BF512_proc.xml                            --> 
+<!-- ************************************************************************* --> 
+ 
+<custom-register-reset-definitions> 
+ 
+     <register name="EBIU_SDRRC" reset-value="0x0805" core="Common" /> 
+     <register name="EBIU_SDBCTL" reset-value="0x0011" core="Common" /> 
+     <register name="EBIU_SDGCTL" reset-value="0x309199AD" core="Common" /> 
+ 
+</custom-register-reset-definitions> 
+</custom-visualdsp-proc-xml> 

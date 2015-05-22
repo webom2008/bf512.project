@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding='ISO-8859-1'?>
+<visualdsp-project-group generated="Mon Dec 23 17:18:39 2013" version="1.0.0.0" active-project="AllInOneDSP">
+	<project name="AllInOneDSP" file=".\AllInOneDSP\AllInOneDSP.dpj">
+	</project>
+	<project name="BF512_InitCode" file=".\BF512_InitCode\BF512_InitCode.dpj">
+	</project>
+	<project name="BF512FlashDriverM25P16" file=".\BF512FlashDriverM25P16\BF512FlashDriverM25P16.dpj">
+	</project>
+</visualdsp-project-group>
