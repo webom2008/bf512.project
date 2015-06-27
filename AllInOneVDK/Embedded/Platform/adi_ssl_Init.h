@@ -49,7 +49,7 @@ directory.  Edit to set the sizings appropriately, then comment out this line. *
 #define ADI_SSL_FLAG_NUM_CALLBACKS          (5) // number of flag callbacks
 #define ADI_SSL_SEM_NUM_SEMAPHORES          (5) // number of semaphores
 
-#define ADI_SSL_DEV_NUM_DEVICES             (5) // number of device drivers
+#define ADI_SSL_DEV_NUM_DEVICES             (5) // number of simultaneously opened device drivers
  /*
  *  PLEASE READ THE FOLLOWING SECTIONS CAREFULLY.  If you do not define the
  * following macros according to your hardware, your applications may not

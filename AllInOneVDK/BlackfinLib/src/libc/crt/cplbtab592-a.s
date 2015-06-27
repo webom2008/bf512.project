@@ -1,0 +1,75 @@
+/* Copyright (C) 2009-2010 Analog Devices, Inc. All Rights Reserved. */
+
+/* CPLB table definitions for ADSP-BF592-A. */
+
+#if defined(__ADSPBF592A__)
+#include <cplb.h>
+
+.SECTION/DOUBLEANY cplb_data;
+// The possible placements of stack in memory must be covered by a locked
+// DCPLB to ensure it is always available for use by exception handlers.
+.ALIGN 4;
+_dcplbs_table:
+.BYTE4=
+  // L1 Data SRAM (32K) - set write-through bit to avoid 1st write exceptions
+  0xFF800000, (PAGE_SIZE_4KB | CPLB_DNOCACHE | CPLB_LOCK | CPLB_WT),
+  0xFF801000, (PAGE_SIZE_4KB | CPLB_DNOCACHE | CPLB_LOCK | CPLB_WT),
+  0xFF802000, (PAGE_SIZE_4KB | CPLB_DNOCACHE | CPLB_LOCK | CPLB_WT),
+  0xFF803000, (PAGE_SIZE_4KB | CPLB_DNOCACHE | CPLB_LOCK | CPLB_WT),
+  0xFF804000, (PAGE_SIZE_4KB | CPLB_DNOCACHE | CPLB_LOCK | CPLB_WT),
+  0xFF805000, (PAGE_SIZE_4KB | CPLB_DNOCACHE | CPLB_LOCK | CPLB_WT),
+  0xFF806000, (PAGE_SIZE_4KB | CPLB_DNOCACHE | CPLB_LOCK | CPLB_WT),
+  0xFF807000, (PAGE_SIZE_4KB | CPLB_DNOCACHE | CPLB_LOCK | CPLB_WT),
+
+  // Boot ROM (4K)
+  0xEF000000, (PAGE_SIZE_4KB | CPLB_L1_CHBL | CPLB_VALID | CPLB_USER_RD),
+
+  0xffffffff; // end of section - termination
+._dcplbs_table.end:
+
+
+_icplbs_table:
+.BYTE4=
+  // L1 Instruction SRAM (32K)
+  0xFFA00000, (PAGE_SIZE_4KB | CPLB_I_PAGE_MGMT), 
+  0xFFA01000, (PAGE_SIZE_4KB | CPLB_I_PAGE_MGMT), 
+  0xFFA02000, (PAGE_SIZE_4KB | CPLB_I_PAGE_MGMT), 
+  0xFFA03000, (PAGE_SIZE_4KB | CPLB_I_PAGE_MGMT), 
+  0xFFA04000, (PAGE_SIZE_4KB | CPLB_I_PAGE_MGMT), 
+  0xFFA05000, (PAGE_SIZE_4KB | CPLB_I_PAGE_MGMT), 
+  0xFFA06000, (PAGE_SIZE_4KB | CPLB_I_PAGE_MGMT), 
+  0xFFA07000, (PAGE_SIZE_4KB | CPLB_I_PAGE_MGMT), 
+
+  // Boot ROM (4K)
+  0xEF000000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+
+  // L1 Instruction ROM (64K)
+  0xFFA10000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA11000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA12000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA13000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA13000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA15000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA16000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA17000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA18000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA19000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA1A000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA1B000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA1C000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA1D000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA1E000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+  0xFFA1F000, (PAGE_SIZE_4KB | CPLB_INOCACHE),  
+
+  0xffffffff; // end of section - termination
+._icplbs_table.end:
+
+.GLOBAL _icplbs_table;
+.TYPE _icplbs_table, STT_OBJECT;
+.GLOBAL _dcplbs_table;
+.TYPE _dcplbs_table, STT_OBJECT;
+
+#else
+# error Wrong target!
+#endif
+

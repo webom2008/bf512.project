@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding='ISO-8859-1'?>
+<visualdsp-project schema="17" name="libssl512_uCOS" file="libssl512_uCOS_auto.dpj" version="1">
+	<!-- Project build target -->
+	<target>
+		<processor revision="Automatic">ADSP-BF518</processor>
+		<extension>.dlb</extension>
+		<type>Library file</type>
+	</target>
+	<!-- Configurations -->
+	<configurations active="Debug">
+		<configuration name="Debug">
+			<intermediate-dir>.\Debug</intermediate-dir>
+			<output-dir>.\Debug</output-dir>
+			<changed-property-page-flags>0</changed-property-page-flags>
+			<tools>
+				<tool type="Compiler">
+					<option><![CDATA[|-Version>5.0|-O>0|-O1>0|-Ov>100|-g>1|-save-temps -path-output>0|-ED>0|-no-builtin>0|-no-extra-keywords>0|-enum-is-int>0|-no-fp-associative>0|-structs-do-not-overlap>0|-implicit-pointers>0|-eh -rtti>0|-check-init-order>0|-ignore-std>0|-const-read-write>0|-const-strings>0|-no-multiline>1|-D>ADI_SSL_WORKAROUNDS,__WORKAROUND_SPECULATIVE_SYNCS,ADI_SSL_UCOS,ADI_SSL_AUTO,ADI_SSL_DEBUG|-I>..\..\..\include|-double-size-32>1|-double-size-any>0|-decls-strong>1|-flags-compiler --diag_warning,implicit_func_decl>1|-warn-protos>1|AdditionalOptions>-double-size-any ]]></option>
+				</tool>
+				<tool type="Assembler">
+					<option><![CDATA[|-Version>5.0|-g>1|-i>../../../include;./ebiu;./int;./pwr|-D>ADI_SSL_DEBUG,ADI_SSL_WORKAROUNDS,__WORKAROUND_SPECULATIVE_SYNCS,ADI_SSL_UCOS,ADI_SSL_AUTO|AdditionalOptions>-double-size-any]]></option>
+				</tool>
+				<tool type="Linker">
+					<option><![CDATA[|-Version>5.0|-flags-link -ip>0|-flags-link -e>0|NOSWITCH>1]]></option>
+				</tool>
+				<tool type="Archiver">
+					<option><![CDATA[]]></option>
+				</tool>
+				<tool type="Loader">
+					<option><![CDATA[|-Version>5.0|-b Flash>1|-f HEX>1|-Width 8>1|-p>0x0|-waits >15|-BaudRate 500k>1|-HoldTime >3|-pFlag >0|-COMPRESSWS>9|-No2Kernel>0|-kb Flash>1|-kf HEX>1|-kWidth 8>1|UserKernel>1|split HEX>1|-maskaddr>0]]></option>
+				</tool>
+				<tool type="VdkGen">
+					<option><![CDATA[]]></option>
+				</tool>
+			</tools>
+			<post-build-description><![CDATA[Adding OSAL to library]]></post-build-description>
+			<post-build-command><![CDATA[cmd /C mkdir concatlib
+cmd /K cd concatlib && $(VDSP)/elfar.exe -e $(VDSP)/Blackfin/lib/debug\libosal512_ucos.dlb *.* && cd .. && exit
+$(VDSP)/elfar.exe -anv Debug\libssl512_uCOS.dlb concatlib\*.doj
+cmd /C del /F /Q concatlib\*.*
+cmd /C rmdir concatlib
+]]></post-build-command>
+		</configuration>
+		<configuration name="Release">
+			<intermediate-dir>.\Release</intermediate-dir>
+			<output-dir>.\Release</output-dir>
+			<changed-property-page-flags>0</changed-property-page-flags>
+			<tools>
+				<tool type="Compiler">
+					<option><![CDATA[|-Version>5.0|-O>1|-O1>1|-Ov>100|-g>0|-save-temps -path-output>0|-ED>0|-no-builtin>0|-no-extra-keywords>0|-enum-is-int>0|-no-fp-associative>0|-structs-do-not-overlap>0|-implicit-pointers>0|-eh -rtti>0|-check-init-order>0|-ignore-std>0|-const-read-write>0|-const-strings>0|-no-multiline>1|-D>ADI_SSL_WORKAROUNDS,__WORKAROUND_SPECULATIVE_SYNCS,ADI_SSL_UCOS,ADI_SSL_AUTO|-I>../../../include|-double-size-32>1|-double-size-any>0|-decls-strong>1|-flags-compiler --diag_warning,implicit_func_decl>1|-warn-protos>1|AdditionalOptions>-double-size-any ]]></option>
+				</tool>
+				<tool type="Assembler">
+					<option><![CDATA[|-Version>5.0|-g>0|-i>../../../include;./ebiu;./int;./pwr|-D>ADI_SSL_WORKAROUNDS,__WORKAROUND_SPECULATIVE_SYNCS,ADI_SSL_UCOS,ADI_SSL_AUTO|AdditionalOptions>-double-size-any]]></option>
+				</tool>
+				<tool type="Linker">
+					<option><![CDATA[|-Version>5.0|-flags-link -ip>0|-flags-link -e>1|NOSWITCH>1]]></option>
+				</tool>
+				<tool type="Archiver">
+					<option><![CDATA[]]></option>
+				</tool>
+				<tool type="Loader">
+					<option><![CDATA[|-Version>5.0|-b Flash>1|-f HEX>1|-Width 8>1|-p>0x0|-waits >15|-BaudRate 500k>1|-HoldTime >3|-pFlag >0|-COMPRESSWS>9|-No2Kernel>0|-kb Flash>1|-kf HEX>1|-kWidth 8>1|UserKernel>1|split HEX>1|-maskaddr>0]]></option>
+				</tool>
+				<tool type="VdkGen">
+					<option><![CDATA[]]></option>
+				</tool>
+			</tools>
+			<post-build-description><![CDATA[Adding OSAL to library]]></post-build-description>
+			<post-build-command><![CDATA[cmd /C mkdir concatlib
+cmd /K cd concatlib && $(VDSP)/elfar.exe -e $(VDSP)/Blackfin/lib/libosal512_ucos.dlb *.* && cd .. && exit
+$(VDSP)/elfar.exe -anv Release\libssl512_uCOS.dlb concatlib\*.doj
+cmd /C del /F /Q concatlib\*.*
+cmd /C rmdir concatlib
+]]></post-build-command>
+		</configuration>
+	</configurations>
+	<!-- Project folders -->
+	<folders>
+		<folder name="Header Files" ext=".h,.hpp,.hxx">
+			<files>
+				<file name="..\..\..\include\services\dcb\adi_dcb.h">
+				</file>
+				<file name="..\..\..\include\services\dma\adi_dma.h">
+				</file>
+				<file name="..\..\..\include\services\ebiu\adi_ebiu.h">
+				</file>
+				<file name=".\ebiu\adi_ebiu_module.h">
+				</file>
+				<file name="..\..\..\include\services\flag\adi_flag.h">
+				</file>
+				<file name="..\..\..\include\services\fss\adi_fss.h">
+				</file>
+				<file name="..\..\..\include\services\int\adi_int.h">
+				</file>
+				<file name=".\int\adi_int_module.h">
+				</file>
+				<file name="..\..\..\include\services\ports\adi_ports.h">
+				</file>
+				<file name="..\..\..\include\services\pwm\adi_pwm.h">
+				</file>
+				<file name="..\..\..\include\services\pwr\adi_pwr.h">
+				</file>
+				<file name=".\pwr\adi_pwr_module.h">
+				</file>
+				<file name="..\..\..\include\services\rtc\adi_rtc.h">
+				</file>
+				<file name="..\..\..\include\services\sem\adi_sem.h">
+				</file>
+				<file name="..\..\..\include\services\stdio\adi_stdio.h">
+				</file>
+				<file name="..\..\..\include\services\tmr\adi_tmr.h">
+				</file>
+				<file name="..\..\..\include\services\services.h">
+				</file>
+			</files>
+		</folder>
+		<folder name="Linker Files" ext=".ldf,.dlb">
+		</folder>
+		<folder name="Source Files" ext=".c,.cpp,.cxx,.asm,.dsp,.s">
+			<files>
+				<file name=".\dcb\adi_dcb.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>..\..</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\dma\adi_dma.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>..\..</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\ebiu\adi_ebiu.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>..\..</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\ebiu\adi_ebiu_asm.asm">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>..\..</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\flag\adi_flag.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\fss\adi_fss.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\fss\adi_fss_cache.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\fss\adi_fss_deventry.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\fss\adi_fss_dirent.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\fss\adi_fss_extra.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\int\adi_int.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>..\..</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\int\adi_int_asm.asm">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>..\..</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\ports\adi_ports.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\pwm\adi_pwm.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\pwr\adi_pwr.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>..\..</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\pwr\adi_pwr_asm.asm">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>..\..</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\rtc\adi_rtc.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\sem\adi_sem.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\tmr\adi_tmr.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+			</files>
+			<folders>
+				<folder name="stdio">
+					<files>
+						<file name=".\stdio\adi_stdio.c">
+							<file-configurations>
+								<file-configuration name="Debug">
+									<excluded-flag value="no"/>
+									<build-with-flag value="project"/>
+									<intermediate-dir>.\Debug</intermediate-dir>
+									<output-dir>.\Debug</output-dir>
+								</file-configuration>
+								<file-configuration name="Release">
+									<excluded-flag value="no"/>
+									<build-with-flag value="project"/>
+									<intermediate-dir>.\Release</intermediate-dir>
+									<output-dir>.\Release</output-dir>
+								</file-configuration>
+							</file-configurations>
+						</file>
+						<file name=".\stdio\adi_stdio_jtag.c">
+							<file-configurations>
+								<file-configuration name="Debug">
+									<excluded-flag value="no"/>
+									<build-with-flag value="project"/>
+									<intermediate-dir>.\Debug</intermediate-dir>
+									<output-dir>.\Debug</output-dir>
+								</file-configuration>
+								<file-configuration name="Release">
+									<excluded-flag value="no"/>
+									<build-with-flag value="project"/>
+									<intermediate-dir>.\Release</intermediate-dir>
+									<output-dir>.\Release</output-dir>
+								</file-configuration>
+							</file-configurations>
+						</file>
+						<file name=".\stdio\adi_stdio_null.c">
+							<file-configurations>
+								<file-configuration name="Debug">
+									<excluded-flag value="no"/>
+									<build-with-flag value="project"/>
+									<intermediate-dir>.\Debug</intermediate-dir>
+									<output-dir>.\Debug</output-dir>
+								</file-configuration>
+								<file-configuration name="Release">
+									<excluded-flag value="no"/>
+									<build-with-flag value="project"/>
+									<intermediate-dir>.\Release</intermediate-dir>
+									<output-dir>.\Release</output-dir>
+								</file-configuration>
+							</file-configurations>
+						</file>
+						<file name=".\stdio\adi_stdio_uart.c">
+							<file-configurations>
+								<file-configuration name="Debug">
+									<excluded-flag value="no"/>
+									<build-with-flag value="project"/>
+									<intermediate-dir>.\Debug</intermediate-dir>
+									<output-dir>.\Debug</output-dir>
+								</file-configuration>
+								<file-configuration name="Release">
+									<excluded-flag value="no"/>
+									<build-with-flag value="project"/>
+									<intermediate-dir>.\Release</intermediate-dir>
+									<output-dir>.\Release</output-dir>
+								</file-configuration>
+							</file-configurations>
+						</file>
+					</files>
+				</folder>
+			</folders>
+		</folder>
+	</folders>
+	<!-- System Builder Components -->
+	<system-builder-component-tables>
+		<system-builder-plugin name="Startup Code Wizard" version="2.0">
+			<system-builder-component name="Project Options">
+				<property name="Compiler Multicore"><![CDATA[False]]></property>
+				<property name="Configuration"><![CDATA[Debug]]></property>
+				<property name="Full IO"><![CDATA[False]]></property>
+				<property name="Intermediate Directory"><![CDATA[.\Debug]]></property>
+				<property name="Linker Multicore"><![CDATA[False]]></property>
+				<property name="Name"><![CDATA[libssl512_uCOS]]></property>
+				<property name="Processor"><![CDATA[ADSP-BF518]]></property>
+				<property name="Silicon Revision"><![CDATA[Automatic]]></property>
+				<property name="Strict IEEE Floating Point Compliance"><![CDATA[False]]></property>
+				<property name="Use C++ exceptions libraries"><![CDATA[False]]></property>
+				<property name="Utility ROM"><![CDATA[True]]></property>
+			</system-builder-component>
+		</system-builder-plugin>
+	</system-builder-component-tables>
+</visualdsp-project>

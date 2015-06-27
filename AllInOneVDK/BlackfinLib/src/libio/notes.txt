@@ -1,0 +1,193 @@
+Host-to-DSP interface for stdio library
+---------------------------------------
+
+This implementation of the stdio.h routines provides for a simple interface
+with a host environment, which may be a simulator, debugger, or emulator. The
+intent is to place minimal demands on the host environment while still
+providing as much functionality to the DSP as possible.
+
+Control
+-------
+
+All I/O operations are channeled through the C function _primIO (the assembly
+label therefore has TWO underscores, __primIO). The _primIO function accepts
+no arguments. Instead, it examines the I/O control block at the label
+_PrimIOCB. Without external intervention by a host environment, the _primIO
+routine simply returns, which indicates failure of the request. Two schemes
+for host interception of I/O requests are provided.
+
+The first scheme is to modify control flow into and out of the _primIO routine.
+Typically, this would be achieved by a breakpoint mechanism available to a
+debugger/simulator. Upon entry to _primIO, the data for the request will reside
+in a control block at the label _PrimIOCB. If this scheme is used, the host
+should arrange to intercept control when it enters the _primIO routine and,
+after servicing the request, return control to the calling routine.
+
+The second scheme involves communicating with the DSP process through a pair
+of simple semaphores. This scheme is most suitable for an externally-hosted
+development board. Under this scheme, the host system should clear the data
+word whose label is __lone_SHARC; this will cause _primIO to assume that a
+host environment is present and able to communicate with the DSP process. If
+_primIO sees that __lone_SHARC is cleared, then upon entry (for example, when
+an I/O request is made) it will set a non-zero value into the word labeled
+__Godot. The _primIO routine will then busy-wait until this word is reset to
+zero by the host. The non-zero value of __Godot raised by _primIO is the
+address of the I/O control block.
+
+Data Packing
+------------
+
+The DSP implementation assumes a word-addressable machine, with each word
+comprising a fixed number of 8-bit bytes. All READ and WRITE requests specify
+a move of some number of 8-bit bytes; that is, the relevant fields count 8-bit
+bytes, not words. Packing is always little-endian, the first byte of a file
+read or written is the low-order byte of the first word transferred.
+
+Data packing is set for four bytes per word for the SHARC DSP architecture.
+Data packing can be changed on the DSP side to accomodate other DSP
+architectures by modifying the constant BITS_PER_WORD, defined in _wordsize.h
+(for example, a DSP with 16-bit addressable words would change this value to
+16).
+
+Note that the file name provided in an OPEN request uses the DSP's "native"
+string format, normally one byte per word. Data packing applies only to READ
+and WRITE requests.
+
+The I/O Control Block
+---------------------
+
+The I/O control block is declared in _primio.h, as follows:
+
+typedef struct {
+    enum
+    {
+        PRIM_OPEN = 100,
+        PRIM_READ,
+        PRIM_WRITE,
+        PRIM_CLOSE,
+        PRIM_SEEK,
+        PRIM_REMOVE,
+        PRIM_RENAME
+    } op;
+
+    int                     fileID;
+    int                     flags;      /* file mode or seek mode */
+    volatile unsigned char* buf;        /* data buffer, or file name */
+    int                     nDesired;   /* Number of characters to read/write */
+
+    int                     nCompleted; /* Number of characters actually
+                                        ** read or written, or tell/seek result.
+                                        ** Also used as rename-to name length.
+                                        */
+    void*                   more;       /* For future use, used as page of data
+                                        ** for 219x.
+                                        */
+} PrimIOCB_T;
+
+
+The op field
+------------
+The first field, op, identifies which of the seven supported operations is
+being requested.
+
+The fileID field
+----------------
+The fileID for an open file is a non-negative integer assigned by the debugger
+or other "host" mechanism. The fileID values 0, 1, and 2 are pre-assigned to
+stdin, stdout, and stderr, respectively. (No open request is required for these
+fileIDs.) This field is also used to hold string lengths for file names passed 
+to fopen, remove and rename.
+
+The flags field
+---------------
+The flags field is a bit field containing other information for special
+requests. Meaningful bit values for an OPEN operation are:
+
+    enum
+    {
+        M_OPENR    =  0x0001,     /* open for reading */
+        M_OPENW    =  0x0002,     /* open for writing */
+        M_OPENA    =  0x0004,     /* open for append  */
+
+        M_TRUNCATE =  0x0008,     /* truncate to zero length if file exists */
+        M_CREATE   =  0x0010,     /* create the file if necessary           */
+        M_BINARY   =  0x0020      /* binary file (vs. text file)            */
+    };
+
+For a READ operation, the low-order four bits of the flag value contain the
+number of bytes packed into each word of the read buffer, and the rest of
+the value is reserved for future use.
+
+For a WRITE operation, the low-order four bits of the flag value contain the
+number of bytes packed into each word of the write buffer, and the rest of the
+value form a bit field, for which only the following bit is currently defined:
+
+    M_ALIGN_BUFFER =  0x10
+
+If this bit is set for a WRITE request, the WRITE operation is expected to be
+aligned on a DSP word boundary by writing padding NULs to the file before the
+buffer contents are transferred.
+
+For a SEEK request, the flags field indicates the seek mode (whence) as
+follows:
+
+    enum
+    {
+        M_SEEK_SET =  0x0001,     /* seek origin is the start of the file */
+        M_SEEK_CUR    0x0002,     /* seek origin is the current position
+                                     within the file                      */
+        M_SEEK_END =  0x0004      /* seek origin is the end of the file   */
+    };
+
+
+
+    M_STRLEN_PROVIDED = 0x08000  /* strlen provided for optimized
+                                 ** symbol manager */
+
+If this bit is set the symbol manager will use the information about string
+lengths stored in PrimIOCB to perform the correct batch memory read for
+improved performance. Set in open, remove and rename.
+
+The flags field is unused for a CLOSE request.
+
+The buf field
+-------------
+The buf field contains a pointer to the file name for an OPEN or REMOVE
+request, or a pointer to the data buffer for a READ or WRITE request.
+
+For a RENAME operation, this field contains a pointer to the old file name.
+
+The nDesired field
+------------------
+For a READ or WRITE request, nDesired is the number of bytes the program is
+requesting to transfer.
+
+For a SEEK request on non-21xx platforms, nDesired contains the offset at which
+the file should be positioned (relative to the origin specified by the flags
+field).
+
+For a SEEK request on 21xx platforms, the 32-bit offset at which the file
+should be positioned (relative to the origin specified by the flags field)
+is stored in the combined fields [buf , nDesired].
+
+This field is also used by a RENAME request, and is set to a pointer to the
+new file name.
+
+The nCompleted field
+--------------------
+primIO is expected to set the nCompleted field to the number of bytes actually
+transferred by a READ or WRITE operation.
+
+For a SEEK operation on non-21xx platforms, primIO should set this field to
+the new value of the file pointer.
+
+For a SEEK operation on 21xx platforms, primIO should set the combined
+fields [nCompleted , more] to the new value of the file pointer.
+
+The more field
+--------------
+On 219x, the more field is set to the page value of the primIO Control Block
+before calling primIO. The Symbol Manager is expected to apply this page
+value to all addresses that it extracts from the control block. For all
+platforms apart from 219x, this field is currently always set to NULL
+before calling primIO.

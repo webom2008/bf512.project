@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding='ISO-8859-1'?>
+<visualdsp-project schema="17" name="libdrv538y" file="libdrv538_standalone_auto.dpj" version="1">
+	<!-- Project build target -->
+	<target>
+		<processor revision="Automatic">ADSP-BF538</processor>
+		<extension>.dlb</extension>
+		<type>Library file</type>
+	</target>
+	<!-- Configurations -->
+	<configurations active="Debug">
+		<configuration name="Debug">
+			<intermediate-dir>.\Debug</intermediate-dir>
+			<output-dir>.\Debug</output-dir>
+			<changed-property-page-flags>5</changed-property-page-flags>
+			<tools>
+				<tool type="Compiler">
+					<option><![CDATA[|-Version>4.5|-O>0|-O1>0|-Ov>100|-g>1|-save-temps -path-output>0|-ED>0|-no-builtin>0|-no-extra-keywords>0|-enum-is-int>0|-no-fp-associative>0|-structs-do-not-overlap>0|-implicit-pointers>0|-eh -rtti>0|-check-init-order>0|-ignore-std>0|-const-read-write>0|-const-strings>0|-no-multiline>1|-D>ADI_DEV_DEBUG,ADI_DEV_AUTO,ADI_DEV_WORKAROUNDS|-I>..\..\..\include|-double-size-32>1|-double-size-any>0|-decls-strong>1|-flags-compiler --diag_warning,implicit_func_decl>1|-warn-protos>1|AdditionalOptions>-double-size-any]]></option>
+				</tool>
+				<tool type="Assembler">
+					<option><![CDATA[|-Version>4.5|-g>1|AdditionalOptions>-double-size-any]]></option>
+				</tool>
+				<tool type="Linker">
+					<option><![CDATA[|-Version>4.5|-flags-link -ip>0|-flags-link -e>0|-add-debug-libpaths>1|NOSWITCH>1]]></option>
+				</tool>
+				<tool type="Archiver">
+					<option><![CDATA[]]></option>
+				</tool>
+				<tool type="Loader">
+					<option><![CDATA[|-Version>4.5|-b Flash>1|-f HEX>1|-Width 8>1|-p>0x0|-waits >15|-BaudRate 500k>1|-HoldTime >3|-pFlag >0|-No2Kernel>0|-kb Flash>1|-kf HEX>1|-kWidth 8>1|UserKernel>1|split HEX>1|-maskaddr>0]]></option>
+				</tool>
+				<tool type="VdkGen">
+					<option><![CDATA[]]></option>
+				</tool>
+			</tools>
+		</configuration>
+		<configuration name="Release">
+			<intermediate-dir>.\Release</intermediate-dir>
+			<output-dir>.\Release</output-dir>
+			<changed-property-page-flags>5</changed-property-page-flags>
+			<tools>
+				<tool type="Compiler">
+					<option><![CDATA[|-Version>4.5|-O>1|-O1>1|-Ov>100|-g>0|-save-temps -path-output>0|-ED>0|-no-builtin>0|-no-extra-keywords>0|-enum-is-int>0|-no-fp-associative>0|-structs-do-not-overlap>0|-implicit-pointers>0|-eh -rtti>0|-check-init-order>0|-ignore-std>0|-const-read-write>0|-const-strings>0|-no-multiline>1|-D>ADI_DEV_AUTO,ADI_DEV_WORKAROUNDS|-I>../../../include|-double-size-32>1|-double-size-any>0|-decls-strong>1|-flags-compiler --diag_warning,implicit_func_decl>1|-warn-protos>1|AdditionalOptions>-double-size-any]]></option>
+				</tool>
+				<tool type="Assembler">
+					<option><![CDATA[|-Version>4.5|-g>0|AdditionalOptions>-double-size-any]]></option>
+				</tool>
+				<tool type="Linker">
+					<option><![CDATA[|-Version>4.5|-flags-link -ip>0|-flags-link -e>1|-add-debug-libpaths>0|NOSWITCH>1]]></option>
+				</tool>
+				<tool type="Archiver">
+					<option><![CDATA[]]></option>
+				</tool>
+				<tool type="Loader">
+					<option><![CDATA[|-Version>4.5|-b Flash>1|-f HEX>1|-Width 8>1|-p>0x0|-waits >15|-BaudRate 500k>1|-HoldTime >3|-pFlag >0|-No2Kernel>0|-kb Flash>1|-kf HEX>1|-kWidth 8>1|UserKernel>1|split HEX>1|-maskaddr>0]]></option>
+				</tool>
+				<tool type="VdkGen">
+					<option><![CDATA[]]></option>
+				</tool>
+			</tools>
+		</configuration>
+	</configurations>
+	<!-- Project folders -->
+	<folders>
+		<folder name="Header Files" ext=".h,.hpp,.hxx">
+			<files>
+				<file name="..\..\..\include\drivers\adi_dev.h">
+				</file>
+				<file name="..\..\..\include\drivers\deviceaccess\adi_device_access.h">
+				</file>
+				<file name="..\..\..\include\drivers\fsd\fat\adi_fat.h">
+				</file>
+				<file name="..\..\..\include\drivers\ppi\adi_ppi.h">
+				</file>
+				<file name="..\..\..\include\drivers\pid\ramdisk\adi_ramdisk.h">
+				</file>
+				<file name="..\..\..\include\drivers\spi\adi_spi.h">
+				</file>
+				<file name="..\..\..\include\drivers\sport\adi_sport.h">
+				</file>
+				<file name="..\..\..\include\drivers\twi\adi_twi.h">
+				</file>
+				<file name="..\..\..\include\drivers\uart\adi_uart.h">
+				</file>
+				<file name="..\..\..\include\services\services.h">
+				</file>
+			</files>
+		</folder>
+		<folder name="Linker Files" ext=".ldf,.dlb">
+		</folder>
+		<folder name="Source Files" ext=".c,.cpp,.cxx,.asm,.dsp,.s">
+			<files>
+				<file name=".\adi_dev.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\deviceaccess\adi_device_access.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\fsd\fat\adi_fat.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\fsd\adi_fsd_cache.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\ppi\adi_ppi.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\pid\ramdisk\adi_ramdisk.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\spi\adi_spi_dma.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\spi\adi_spi_int.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\sport\adi_sport.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\twi\adi_twi.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\twi\adi_twi_pseudo.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\uart\adi_uart_dma.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+				<file name=".\uart\adi_uart_int.c">
+					<file-configurations>
+						<file-configuration name="Debug">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Debug</intermediate-dir>
+							<output-dir>.\Debug</output-dir>
+						</file-configuration>
+						<file-configuration name="Release">
+							<excluded-flag value="no"/>
+							<build-with-flag value="project"/>
+							<intermediate-dir>.\Release</intermediate-dir>
+							<output-dir>.\Release</output-dir>
+						</file-configuration>
+					</file-configurations>
+				</file>
+			</files>
+		</folder>
+	</folders>
+	<!-- System Builder Components -->
+	<system-builder-component-tables>
+		<system-builder-plugin name="Startup Code Wizard" version="2.0">
+			<system-builder-component name="Project Options">
+				<property name="Compiler Multicore"><![CDATA[False]]></property>
+				<property name="Configuration"><![CDATA[Debug]]></property>
+				<property name="Full IO"><![CDATA[False]]></property>
+				<property name="Intermediate Directory"><![CDATA[.\Debug]]></property>
+				<property name="Linker Multicore"><![CDATA[False]]></property>
+				<property name="Name"><![CDATA[libdrv538y]]></property>
+				<property name="Processor"><![CDATA[ADSP-BF538]]></property>
+				<property name="Silicon Revision"><![CDATA[Automatic]]></property>
+				<property name="Strict IEEE Floating Point Compliance"><![CDATA[False]]></property>
+				<property name="Use C++ exceptions libraries"><![CDATA[False]]></property>
+				<property name="Utility ROM"><![CDATA[True]]></property>
+			</system-builder-component>
+		</system-builder-plugin>
+	</system-builder-component-tables>
+</visualdsp-project>

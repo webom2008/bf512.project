@@ -31,13 +31,6 @@ extern "C"{
 
 #include "Config/defines.h" // must include before blackfin lib.
 
-//#include <cdefBF512.h>
-//#include <ccblkfn.h>
-//#include <sys/exception.h>
-//#include <services/services.h>		// system service includes
-//#include <services/stdio/adi_stdio.h>
-//#include <drivers/adi_dev.h>        // device manager
-
 #include <adi_types.h>
 #include <drivers/adi_dev.h>
 #include <drivers/uart/adi_uart.h>		// UART device driver includes
@@ -49,11 +42,10 @@ extern "C"{
 
 #include "Config/typedefs.h"
 #include "CVTELib/cvteBF51x.h"
-//#include "AIODrivers/SystemUart.h"
-//#include "AIODrivers/AIODrivers.h"
-//#include "AIODrivers/AioLed.h"
 #include "Embedded/Platform/adi_ssl_Init.h" /* adapted from ./blackfin/Examples/Common Code */
 #include "Embedded/Drivers/adi_stdio.h"
+#include "Embedded/Drivers/AIODrivers.h"
+#include "Embedded/Drivers/StdioUart.h"
 
 
 

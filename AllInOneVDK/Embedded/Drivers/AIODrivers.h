@@ -34,7 +34,6 @@ extern "C"{
 #define AIO_DRI_EXT    extern
 #endif
 
-AIO_DRI_EXT void InitDeviceDrivers(void);
 
 #ifdef __cplusplus
 #if __cplusplus
