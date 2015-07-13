@@ -9,6 +9,18 @@
 # Date		: 2014-6-25
 # Comment	: script for make uboot for aio-bf512
 ##############################################
+#download ldr as follow: PF3=1 into u-boot command console
+#=======================================================================
+#download u-boot.ldr(u-boot:0x0 -- 0x7ffff, len=0x80000)
+#sf probe 2;sf erase 0 0x80000;sf write 0x00d80000 0 0x80000
+#
+#=======================================================================
+#download app(App:0x80000 -- 0x1fffff, len=0x180000)
+#sf probe 2;sf erase 0x80000 0x180000;sf write 0x00d80000 0x80000 0x180000
+#=======================================================================
+#sart app
+#sf probe 2;sf read 0x00d80000 0x80000 0x180000;bootldr 0x00d80000
+#=======================================================================
 
 # Method 1:
 ./MAKEALL bf518f-ezbrd

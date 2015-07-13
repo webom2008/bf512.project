@@ -152,8 +152,11 @@
 # define BOOT_SPI_FLASH_ENV_SETTINGS \
     "sfboot=" \
     "sf probe 2;" \
-    "sf read 0x800000 0x80000 0x180000;" \
-    "bootldr 0x800000" \
+    "sf read " __stringify(CONFIG_SYS_LOAD_ADDR) \
+    " " __stringify(CONFIG_UBOOT_SPI_FLASH_SIZE) \
+    " " __stringify(CONFIG_USER_SPI_FLASH_SIZE) \
+    ";" \
+    "bootldr " __stringify(CONFIG_SYS_LOAD_ADDR) \
     "\0"
 #endif
 #ifndef CONFIG_SYS_LOAD_ADDR
